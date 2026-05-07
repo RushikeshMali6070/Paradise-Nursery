@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="form-box">
+  <h1>Enter Address</h1>
+
+  <input placeholder="Name"><br>
+  <input placeholder="Address"><br>
+  <input placeholder="Phone"><br>
+
+  <h2>Payment Method</h2>
+
+  <button onclick="placeOrder()">Cash on Delivery</button>
+  <button onclick="placeOrder()">UPI</button>
+</div>
+
+<script>
+function placeOrder(){
+  localStorage.removeItem("cart");
+  window.location.href="success.html";
+}
+</script>
+
+</body>
+</html>
