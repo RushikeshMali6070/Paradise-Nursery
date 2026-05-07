@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Your Cart</h1>
+</header>
+
+<div id="cartItems" class="container"></div>
+<h2 id="total"></h2>
+
+<a href="checkout.html"><button>Proceed to Checkout</button></a>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || {};
+let total = 0;
+
+function updateCart() {
+  const container = document.getElementById("cartItems");
+  container.innerHTML = "";
+  total = 0;
+
+  for (let id in cart) {
+    let item = cart[id];
+    total += item.price * item.qty;
+
+    container.innerHTML += `
+      <div class="card">
+        <img src="${item.img}">
+        <h3>${item.name}</h3>
+        <p>₹${item.price} × ${item.qty}</p>
+        <button onclick="inc(${id})">+</button>
+        <button onclick="dec(${id})">-</button>
+      </div>
+    `;
+  }
+
+  document.getElementById("total").innerText = "Total: ₹" + total;
+}
+
+function inc(id){ cart[id].qty++; save(); }
+function dec(id){
+  cart[id].qty--;
+  if(cart[id].qty<=0) delete cart[id];
+  save();
+}
+
+function save(){
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
+}
+
+updateCart();
+</script>
+
+</body>
+</html>
